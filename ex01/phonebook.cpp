@@ -5,12 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/19 10:54:08 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/03/22 17:47:13 by ivarosic         ###   ########lyon.fr   */
+/*   Created: 2021/03/24 16:59:13 by ivarosic          #+#    #+#             */
+/*   Updated: 2021/03/24 16:59:16 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
 #include "phonebook.hpp"
 
 Phonebook::Phonebook( void ){
@@ -72,35 +71,86 @@ void Phonebook::_ft_add(void)
 	_i++;
 }
 
+void Phonebook::_ft_print_resize(std::string line)
+{
+	line.resize(9);
+	std::cout << line << ".|";
+}
 void Phonebook::_ft_print_space(std::string line)
 {
+	int i;
 
+	i = line.size();
+	while(i <= 9)
+	{
+		std::cout << " ";
+		i++;
+	}
+	std::cout << line << "|";
 }
+
 void Phonebook::_ft_print_all(void)
 {
 	int n = 0;
 	std::string line;
 
-	std::cout << "index     |prenom    |nom       |pseudo    " << std::endl;
+	std::cout << "index     |prenom    |nom       |pseudo    |" << std::endl;
 	while(n < _i)
 	{
-		std::cout << n << "         |";
+		std::cout << "         " << n << "|";
 		line = _c[n].first_name;
-		std::cout << line.size() << std::endl;
+		if(line.size() < 10)
+			_ft_print_space(line);
+		else
+			_ft_print_resize(line);
+		line = _c[n].last_name;
+		if(line.size() < 10)
+			_ft_print_space(line);
+		else
+			_ft_print_resize(line);
+		line = _c[n].login;
+		if(line.size() < 10)
+			_ft_print_space(line);
+		else
+			_ft_print_resize(line);
+		std::cout << std::endl;
 		n++;
 	}
+}
 
+void Phonebook::_ft_print_contact(int n)
+{
+	std::cout << std::endl << "first name : " << _c[n].first_name << std::endl;
+	std::cout << "last name : " <<_c[n].last_name << std::endl;
+	std::cout << "nickname : " << _c[n].nickname << std::endl;
+	std::cout << "login : " << _c[n].login << std::endl;
+	std::cout << "postal address : " << _c[n].postal_address << std::endl;
+	std::cout << "email address : "<< _c[n].email_address << std::endl;
+	std::cout << "phone number : " << _c[n].phone_number << std::endl;
+	std::cout << "birthday date : " << _c[n].birthday_date << std::endl;
+	std::cout << "favorite meal : " << _c[n].favorite_meal << std::endl;
+	std::cout << "underwear color : " << _c[n].underwear_color << std::endl;
+	std::cout << "darkest secret : " << _c[n].darkest_secret << std::endl << std::endl;
 }
 
 void Phonebook::_ft_search(void)
 {
+	std::string line;
+	int n;
+
 	if(_i == 0)
 	{
-	std::cout << "need contact for search" << std::endl;
+		std::cout << "need contact for search" << std::endl;
 		return;
 	}
 	_ft_print_all();
-
+	std::cout << std::endl <<"select contact: ";
+	std::getline(std::cin, line);
+	n = std::stoi(line);
+	if(n < _i)
+		_ft_print_contact(n);
+	else
+		std::cout << "contact don't exist" << std::endl;
 }
 
 int Phonebook::ft_cmd(std::string cmd)
@@ -116,19 +166,4 @@ int Phonebook::ft_cmd(std::string cmd)
 	else
 		std::cout << "only ADD, SEARCH or EXIT has accepted" << std::endl;
 	return(1);
-}
-
-int main(void)
-{
-	std::string cmd;
-	Phonebook p;
-	std::cout << "type ADD, SEARCH or EXIT" << std::endl;
-	while(1)
-	{
-		std::cout << "prompt> ";
-		std::getline(std::cin, cmd);
-		if(p.ft_cmd(cmd) == 0)
-			return(0);
-	}
-	return 0;
 }

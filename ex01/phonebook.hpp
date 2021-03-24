@@ -6,12 +6,14 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:44:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/03/22 17:47:11 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 17:23:44 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
+
+#include <iostream>
 
 class	Phonebook	{
 
@@ -38,7 +40,9 @@ class	Phonebook	{
 		void _ft_add(void);
 		void _ft_search(void);
 		void _ft_print_all(void);
-		void _ft_print_all(std::string line);
+		void _ft_print_space(std::string line);
+		void _ft_print_resize(std::string line);
+		void _ft_print_contact(int n);
 
 
 	public:

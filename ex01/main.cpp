@@ -1,47 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/24 17:31:21 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/03/24 17:31:25 by ivarosic         ###   ########lyon.fr   */
+/*   Created: 2021/03/24 16:58:49 by ivarosic          #+#    #+#             */
+/*   Updated: 2021/03/24 16:58:51 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+#include "phonebook.hpp"
 
-int main(int ac, char **av)
+int main(void)
 {
-	int i;
-	int j;
-	char c;
-
-	i = 1;
-	if (ac == 1)
+	std::string cmd;
+	Phonebook p;
+	std::cout << "type ADD, SEARCH or EXIT" << std::endl;
+	while(1)
 	{
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-	}
-	else
-	{
-		while(i < ac)
-		{
-			j = 0;
-			while(av[i][j])
-			{
-				if(av[i][j] >= 'a' && av[i][j] <= 'z')
-				{
-					c = toupper(av[i][j]);
-					std::cout << c;
-				}
-				else
-					std::cout << av[i][j];
-				j++;
-			}
-			i++;
-		}
-		std::cout << std::endl;
+		std::cout << "prompt> ";
+		std::getline(std::cin, cmd);
+		if(p.ft_cmd(cmd) == 0)
+			return(0);
 	}
 	return 0;
 }
