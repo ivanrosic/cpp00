@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 10:44:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/03/24 17:23:44 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 14:02:22 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ class	Phonebook	{
 		void _ft_print_all(void);
 		void _ft_print_space(std::string line);
 		void _ft_print_resize(std::string line);
+		int  _ft_is_digit(std::string line);
+		int  _ft_verif_mail(std::string line);
 		void _ft_print_contact(int n);
 
 

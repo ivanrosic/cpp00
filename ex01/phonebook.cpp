@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 16:59:13 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/03/24 16:59:16 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 14:16:30 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,54 +19,159 @@ Phonebook::Phonebook( void ){
 Phonebook::~Phonebook( void ){
 }
 
+int Phonebook::_ft_verif_mail(std::string line)
+{
+	int i = 0;
+	int p = 0;
+	int a = 0;
+	while(line[i])
+	{
+		if(line[i] == '@')
+			a = 1;
+		if(a == 1 && line[i] == '.')
+			p = 1;
+		i++;
+	}
+	if (p == 1)
+		return(1);
+	return(0);
+}
+
+int Phonebook::_ft_is_digit(std::string line)
+{
+	int i = 0;
+	int r = 0;
+	while(line[i])
+	{
+		if (r == 0)
+			if(line[i] < '0' || line[i] > '9')
+				r = 1;
+		i++;
+	}
+	return(r);
+}
+
 void Phonebook::_ft_add(void)
 {
 	if (_i >= 8)
+	{
+		std::cout << "contact limit to 8" << std::endl;
 		return;
+	}
 	std::string line;
-	std::cout << "first_name : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << "first_name : ";
+		std::getline(std::cin, line);
+		if(_ft_is_digit(line) == 0)
+		{
+			std::cout << "invalid first name" << std::endl;
+			line = "";
+		}
+	}
 	_c[_i].first_name = line;
+	line = "";
 
-	std::cout << "last_name : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << "last_name : ";
+		std::getline(std::cin, line);
+		if(_ft_is_digit(line) == 0)
+		{
+			std::cout << "invalid last name" << std::endl;
+			line = "";
+		}
+	}
 	_c[_i].last_name = line;
+	line = "";
 
-	std::cout << "nickname : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << "nickname : ";
+		std::getline(std::cin, line);
+	}
 	_c[_i].nickname = line;
+	line = "";
 
-	std::cout << "login : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << "login : ";
+		std::getline(std::cin, line);
+	}
 	_c[_i].login = line;
+	line = "";
 
-	std::cout << "postal address : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << "postal address : ";
+		std::getline(std::cin, line);
+	}
 	_c[_i].postal_address = line;
+	line = "";
 
-	std::cout << "email address : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << "email address : ";
+		std::getline(std::cin, line);
+		if(_ft_verif_mail(line) == 0)
+		{
+			std::cout << "invalid address mail" << std::endl;
+			line = "";
+		}
+	}
 	_c[_i].email_address = line;
+	line = "";
 
-	std::cout << "phone number : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+
+		std::cout << "phone number : ";
+		std::getline(std::cin, line);
+		if(_ft_is_digit(line) != 0)
+		{
+			std::cout << "only number are accepted" << std::endl;
+			line = "";
+		}
+	}
 	_c[_i].phone_number = line;
+	line = "";
 
-	std::cout << "birthday date : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << "birthday date : ";
+		std::getline(std::cin, line);
+		if(_ft_is_digit(line) != 0)
+		{
+			std::cout << "only number are accepted" << std::endl;
+			line = "";
+		}
+	}
 	_c[_i].birthday_date = line;
+	line = "";
 
-	std::cout << "favorite meal : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << "favorite meal : ";
+		std::getline(std::cin, line);
+	}
 	_c[_i].favorite_meal = line;
+	line = "";
 
-	std::cout << "underwear color : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << "underwear color : ";
+		std::getline(std::cin, line);
+	}
 	_c[_i].underwear_color = line;
+	line = "";
 
-	std::cout << "darkest secret : ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << "darkest secret : ";
+		std::getline(std::cin, line);
+	}
 	_c[_i].darkest_secret = line;
+	line = "";
 
 	_i++;
 }
@@ -144,8 +249,16 @@ void Phonebook::_ft_search(void)
 		return;
 	}
 	_ft_print_all();
-	std::cout << std::endl <<"select contact: ";
-	std::getline(std::cin, line);
+	while(line == "")
+	{
+		std::cout << std::endl <<"select contact: ";
+		std::getline(std::cin, line);
+		if (_ft_is_digit(line) == 1)
+		{
+			std::cout << "only number are accepted" << std::endl;
+			line = "";
+		}
+	}
 	n = std::stoi(line);
 	if(n < _i)
 		_ft_print_contact(n);
@@ -164,6 +277,6 @@ int Phonebook::ft_cmd(std::string cmd)
 	else if(cmd == "SEARCH")
 		_ft_search();
 	else
-		std::cout << "only ADD, SEARCH or EXIT has accepted" << std::endl;
+		std::cout << "only ADD, SEARCH or EXIT are accepted" << std::endl;
 	return(1);
 }
